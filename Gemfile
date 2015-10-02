@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'sinatra'
-gem 'passenger'
 gem 'mongo'
+
+gem 'passenger', ">= 5.0.11"
