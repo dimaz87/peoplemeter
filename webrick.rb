@@ -9,7 +9,7 @@ CERT_PATH = ROOT_PATH + "/ssl"
 HOST_ADDRESS = '0.0.0.0'
 
 WEBRICK_OPTIONS = {
-  :Port => 8443,
+  :Port => 443,
   :Host => HOST_ADDRESS,
   :Logger => WEBrick::Log::new($stderr, WEBrick::Log::DEBUG),
   :DocumentRoot => ROOT_PATH,
