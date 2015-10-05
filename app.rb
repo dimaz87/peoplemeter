@@ -16,6 +16,7 @@ class PeoplemeterServer < Sinatra::Base
   options '/statistic/:sn' do
     halt 400 unless check_sn params[:sn]
     headers "Allow" => "OPTIONS, POST"
+    status 200
   end
 
   post '/statistic/:sn' do
@@ -27,6 +28,6 @@ class PeoplemeterServer < Sinatra::Base
     target = File.open(File.join(STATS_PATH, Time.now.strftime('%Y%m%d%H%M%S%L')), 'w')
     target.write(statsHash.to_json)
     target.close
-    status 202
+    status 204
   end
 end
