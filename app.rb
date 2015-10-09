@@ -20,7 +20,7 @@ class PeoplemeterServer < Sinatra::Base
   end
 
   configure :test, :production do
-    set :sn_pattern, /^[0-9]+$/
+    #set :sn_pattern, /^[0-9]+$/
   end
 
   configure :development, :test do
