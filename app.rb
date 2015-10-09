@@ -11,14 +11,22 @@ class PeoplemeterServer < Sinatra::Base
     Dir.mkdir STATS_PATH unless Dir.exist? STATS_PATH
   end
 
-  configure :development, :test do
-    get '/help' do
-      "Just a test\n"
-    end
+  configure :test do
+    enable :logging
+  end
+
+  configure :production do
+    disable :logging
   end
 
   configure :test, :production do
     set :sn_pattern, /^[0-9]+$/
+  end
+
+  configure :development, :test do
+    get '/help' do
+      "Just a test\n"
+    end
   end
 
   def check_sn(sn)
