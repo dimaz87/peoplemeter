@@ -2,7 +2,7 @@ require 'sinatra/base'
 require 'json'
 require 'zlib'
 
-STATS_PATH = File.join(File.dirname(__FILE__), "stats")
+STATS_PATH = ENV['STATS_PATH'] || File.join(File.dirname(__FILE__), "stats")
 
 class PeoplemeterServer < Sinatra::Base
   before do
