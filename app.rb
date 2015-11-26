@@ -45,6 +45,8 @@ class PeoplemeterServer < Sinatra::Base
 
     request_data = request.body.read
     stats_hash = JSON.parse(request_data.to_s)
+    stats_hash[:ip] = request.ip
+    request_data_with_ip = JSON.generate stats_hash
 
     halt 400, "no serial number" unless stats_hash.has_key? "serialNumber"
     serial_number = stats_hash["serialNumber"].to_s
@@ -52,9 +54,9 @@ class PeoplemeterServer < Sinatra::Base
 
     target_directory_path = File.join STATS_PATH, serial_number
     Dir.mkdir target_directory_path unless Dir.exist? target_directory_path
-    File.open(File.join(target_directory_path, Time.now.strftime('%Y%m%d-%H%M%S.%L')), 'w') do |f|
-      gz = Zlib::GzipWriter.new f
-      gz.write request_data
+    File.open(File.join(target_directory_path, Time.now.strftime('%Y%m%d-%H%M%S.%L')), 'w') do |out_file|
+      gz = Zlib::GzipWriter.new out_file
+      gz.write request_data_with_ip
       gz.close
     end
 
