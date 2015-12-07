@@ -54,7 +54,7 @@ class PeoplemeterServer < Sinatra::Base
 
     target_directory_path = File.join STATS_PATH, serial_number
     Dir.mkdir target_directory_path unless Dir.exist? target_directory_path
-    File.open(File.join(target_directory_path, Time.now.strftime('%Y%m%d-%H%M%S.%L')), 'w') do |out_file|
+    File.open(File.join(target_directory_path, Time.now.utc.strftime('%Y%m%d-%H%M%S.%L')), 'w') do |out_file|
       gz = Zlib::GzipWriter.new out_file
       gz.write request_data_with_ip
       gz.close
